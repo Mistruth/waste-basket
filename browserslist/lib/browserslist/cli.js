@@ -4,6 +4,7 @@ var fs = require('fs')
 
 var browserslist = require('./')
 var pkg = require('./package.json')
+// 不需要前两个参数 是node的路径
 var args = process.argv.slice(2)
 
 var USAGE = 'Usage:\n' +
@@ -24,13 +25,16 @@ function isArg (arg) {
 }
 
 function error (msg) {
+  // 错误 流输出
   process.stderr.write(pkg.name + ': ' + msg + '\n')
   process.exit(1)
 }
 
 if (isArg('--help') || isArg('-h')) {
+  // 告知如何使用
   process.stdout.write(pkg.description + '.\n\n' + USAGE + '\n')
 } else if (isArg('--version') || isArg('-v')) {
+  // stdout 流out
   process.stdout.write(pkg.name + ' ' + pkg.version + '\n')
 } else {
   var mode = 'browsers'
@@ -59,8 +63,10 @@ if (isArg('--help') || isArg('-h')) {
     } else if (name === '--coverage' || name === '-c') {
       if (mode !== 'json') mode = 'coverage'
       if (value) {
+        // queries用 逗号分隔
         areas = value.split(',')
       } else {
+        // 没有指定
         areas = ['global']
       }
     } else if (name === '--json') {
@@ -73,6 +79,7 @@ if (isArg('--help') || isArg('-h')) {
   var browsers
   try {
     if (!queries && !opts.config) {
+      // 寻找命令工作的目录
       if (browserslist.findConfig(process.cwd())) {
         opts.path = process.cwd()
       } else {
@@ -83,6 +90,7 @@ if (isArg('--help') || isArg('-h')) {
         )
       }
     }
+    // 核心 会得到一个浏览器范围
     browsers = browserslist(queries, opts)
   } catch (e) {
     if (e.name === 'BrowserslistError') {
