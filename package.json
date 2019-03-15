@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/Mistruth/Collections/issues"
   },
-  "homepage": "https://github.com/Mistruth/Collections#readme"
+  "homepage": "https://github.com/Mistruth/Collections#readme",
+  "dependencies": {
+    "postcss": "^7.0.14",
+    "webpack": "^4.29.6"
+  }
 }

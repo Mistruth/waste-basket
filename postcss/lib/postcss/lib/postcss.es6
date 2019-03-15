@@ -114,6 +114,7 @@ postcss.plugin = function plugin (name, initializer) {
     return transformer
   }
 
+  // 如何缓存 通过defineProperty进行缓存
   let cache
   Object.defineProperty(creator, 'postcss', {
     get () {
