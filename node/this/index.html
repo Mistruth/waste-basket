@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    
+    function getGlobalObject(){
+      return this
+    }
+
+    // Function.prototype.myApply = function(thisArg, argsArray){
+
+    //   if(typeof this !== 'function'){
+    //     throw new TypeError(this + ' is not a function');
+    //   }
+    //   if(typeof argsArray === 'undefined' || argsArray === null){
+    //     argsArray = [];
+    //   }
+    //   if(argsArray !== new Object(argsArray)){
+    //     throw new TypeError('CreateListFromArrayLike called on non-object');
+    //   }
+    //   if(typeof thisArg === 'undefined' || thisArg === null){
+    //     // 在外面传入的 thisArg 值会修改并成为 this 值。
+    //     // ES3: thisArg 是 undefined 或 null 时它会被替换成全局对象 浏览器里是window
+    //     thisArg = getGlobalObject()
+    //   }
+
+    //   thisArg = new Object(thisArg)
+    //   var __fn = '__fn'
+    //   thisArg[__fn] = this
+    //   // 9.提供 thisArg 作为 this 值并以 argList 作为参数列表，调用 func 的 [[Call]] 内部方法，返回结果
+    //   var result = thisArg[__fn](...argsArray)
+    //   delete thisArg[__fn]
+    //   return result
+    // }
+
+
+      Function.prototype.myApply = function(thisArg,argsArr){
+
+        if (typeof this !== 'function') {
+          throw new TypeError(this + 'is not a function')
+        }
+        
+        if (typeof argsArr === 'undefined' || argsArr === null) {
+          argsArr = []
+        }
+
+        if (typeof thisArg === 'undefined' || thisArg === null ) {
+          thisArg = getGlobalObject()
+        }
+
+        const attr = '_attr'
+      
+        thisArg[attr] = this //apply的调用者是sayhi
+        
+        const res = thisArg[attr](...argsArr)
+        
+        delete thisArg[attr]
+
+        return res
+
+      }
+
+
+
+    const obj = {
+      name: '这是一个对象',
+      sayHi: function(a,b,c){
+        console.log(arguments)
+        console.log(this.name)
+      }
+    }
+    
+    const anotherObj = {
+      name: '这是另外一个对象',
+    }
+
+    // obj.sayHi.apply(anotherObj,[12333,1223])
+    
+    // obj.sayHi.myApply(anotherObj,[12333,1223])
+
+    class Vue {
+
+      constructor(obj) {
+        
+        for(var k in obj){
+          this[k] = obj[k]
+        }
+
+      }
+
+    }
+
+    const vm = new Vue({
+      created(){
+        console.log(created)
+      },
+      name: 'vue的实例',
+      mounted(){
+
+       (()=>{
+         console.log(this)
+       })()
+
+      }
+    })
+    
+    vm.mounted()
+
+  </script>
+</body>
+</html>
