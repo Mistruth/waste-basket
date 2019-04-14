@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button id="haha">haha</button>
+  <script>
+    var getSingle = function(fn){
+      var result
+      return function(){
+        return result || (result = fn.apply(this,arguments))
+      }
+    }
+
+    var createLoginLayer = function(){
+      var div = document.createElement('div')
+      div.innerHTML = '我是登录窗口'
+      div.style.display = 'none'
+      document.body.appendChild(div)
+      return div
+    }
+
+    var createSingleLoginLayer = getSingle(createLoginLayer)
+    
+    var btn = document.querySelector('#haha')
+
+    btn.onclick = function(){
+      var layer = createSingleLoginLayer()
+      layer.style.display = 'block'
+    }
+  </script>
+</body>
+</html>

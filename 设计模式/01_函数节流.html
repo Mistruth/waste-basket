@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <button id="btn">这是一个按钮</button>
+  <script>
+    
+    function throttle(fn,interval){
+      const _self = fn
+      let first = true
+      let timer = null
+      
+      return function(){
+        var args = arguments
+        __me = this  //相当于拿到 btn 的上下文
+        
+        if(first){
+          _self.apply(__me,args)
+          first = false
+          return
+        }
+
+        if(timer) {
+          return false
+        }
+
+        timer = setTimeout(function() {
+          clearTimeout(timer)
+          timer = null
+          _self.apply(__me,args)
+        },interval || 500)
+      }
+    }
+
+    const btn = document.querySelector('#btn')
+    btn.onclick = throttle(function(){
+      console.log(this)
+    },2000)
+    
+  </script>
+</body>
+</html>

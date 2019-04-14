@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Person(){
+      this.name = 'haha'
+      // this.instance = null
+    }
+
+    Person.getInstance = function(){
+      // 这里的this是指Person构造函数
+      if(!this.instance){
+        this.instance = new Person()
+      }
+      return this.instance
+    }
+
+    var a = Person.getInstance()
+    var b = Person.getInstance()
+
+    console.log(a === b)
+  
+    
+    var p = new Person()
+    console.dir(Person)
+  </script>
+</body>
+</html>
