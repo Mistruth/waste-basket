@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+  // var each = function(arr,fn){
+  //   for(var i = 0;i<arr.length;i++){
+  //     fn.call(arr[i],i,arr[i])
+  //   }
+  // }
+
+  // each([1,2,3],function(index,item){
+  //   console.log(item)
+  // })
+
+  var iterator = function(obj){
+    var current = 0
+
+    var next = function(){
+      current += 1
+    }
+
+    var isDone = function(){
+      return current >= obj.length
+    }
+
+
+    var getItem = function(){
+      return obj[current]
+    }
+
+    return {
+      next,
+      isDone,
+      getItem
+    }
+  }
+
+
+  var compare = function(iterator1,iterator2){
+    
+    while(!iterator1.isDone() && !iterator2.isDone()){
+      if(iterator1.getItem() !== iterator2.getItem()){
+        throw new Error('两者不相等')
+      }
+      iterator1.next()
+      iterator2.next()
+    }
+    console.log('两者相等')
+  }
+
+  var iterator1 = iterator( [ 1, 2, 4 ] )
+  var iterator2 = iterator( [ 1, 2, 3 ] )
+
+  compare(iterator1,iterator2)
+
+
+
+  </script>
+</body>
+</html>

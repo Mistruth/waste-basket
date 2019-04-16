@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var myImg = (function(){
+      var imgNode = document.createElement('img')
+      document.body.appendChild( imgNode )
+      return {
+        setSrc: function(src){
+          imgNode.src = src
+        }
+      }
+    })()
+
+    var proxyImg = (function(){
+      var img = new Image
+
+      // img加载完毕后出发的事件
+      img.onload = function(){
+        // 这里的this相当于img
+        myImg.setSrc(this.src)
+      }
+
+      return {
+        setSrc: function(src){
+          myImg.setSrc('./timg.jpg')
+          img.src = src
+        }
+      }
+
+
+    })()
+    
+    proxyImg.setSrc('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555435883783&di=40263881eadafd7257d672501b39b3a0&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fblog%2F201407%2F11%2F20140711233002_y8TiN.gif')
+  
+  </script>
+</body>
+</html>
