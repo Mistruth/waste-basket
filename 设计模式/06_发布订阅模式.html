@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var Event = (function(){
+      var list = {}
+      var listen = function(key,fn){
+        if (list[key]) {
+          list[key].push(fn)
+        } else {
+          list[key] = [fn]
+        }
+      }
+
+      var trigger = function(){
+          var key = Array.prototype.shift.apply(arguments)
+          fns = list[key]
+          if(!fns||fns.length === 0){
+            return false
+          }
+          for(var i = 0;i<fns.length;i++){
+            
+            fn = fns[i]
+            fn.apply(this,arguments)
+          }
+      }
+
+      var remove = function(key,fn){
+        var fns = list[key]
+        if(!fns){
+          return false
+        }
+          // remove 掉所有的
+        if(!fn){
+          fns&&(fns.length = 0)
+        }
+        else {
+          for(var i=0;i<fns.length;i++){
+            if(fn === fns[i]){
+              fns.splice(i,1)
+            }
+          }
+        }
+      }
+      return {
+        listen,
+        remove,
+        trigger
+      }
+    })()
+
+
+    Event.listen('haha',function(data,data2){
+      console.log(data,data2)
+    })
+
+    Event.trigger('haha',123,234)
+
+  </script>
+</body>
+</html>
