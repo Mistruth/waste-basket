@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var Folder = function(name){
+      this.parent = null
+      this.name = name
+      this.files = []
+    }
+    
+    Folder.prototype.add = function(file){
+      file.parent = this
+      this.files.push(file)
+    }
+
+    Folder.prototype.scan = function(){
+      this.files.forEach(file => {
+        file.scan()
+      })
+    }
+
+    Folder.prototype.remove = function(){
+      if(!this.parent){
+        return
+      }
+      this.parent.files.forEach((file,index) => {
+        if(file === this){
+          this.parent.files.splice(index,1)
+        }
+      })
+    }
+
+
+    var File =function(name){
+      this.parent = null
+      this.name = name
+    }
+    
+    File.prototype.add = function(){
+      throw new Error('不能添加')
+    }
+
+    File.prototype.scan = function(){
+      console.log('开始扫描文件'+this.name)
+    }
+
+    File.prototype.remove = function(){
+      if(!this.parent){
+        return
+      }
+
+      this.parent.files.forEach((file,index)=>{
+        if(file === this){
+          this.parent.files.splice(index,1)
+        }
+      })
+
+    }
+
+
+  </script>
+</body>
+</html>
