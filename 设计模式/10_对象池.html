@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    
+    
+
+    var objFactory = function(){
+      var pool = []
+      return {
+        create:function(){
+          
+          if(pool.length === 0){
+            var div = document.createElement('div')
+            document.body.append(div)
+            return div
+          } else {
+            return pool.shift()
+          }
+        },
+        recover:function(dom){
+          return pool.push(dom)
+        }
+      }
+    }
+    var ary = []
+    for ( var i = 0, str; str = [ 'A', 'B' ][ i++ ];){ 
+      var div = objFactory().create() 
+      div.innerHTML = str
+      ary.push( div )
+    }
+    
+
+  
+  </script>
+</body>
+</html>

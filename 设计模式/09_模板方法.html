@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // var beverage = function(option){
+    //   var a = option.a||function(){
+    //     console.log('步骤A')
+    //   }
+    //   var b = option.b|| function(){
+    //     console.log('步骤b')
+    //   }
+    //   var c =  option.c|| function(){
+    //     console.log('步骤c')
+    //   }
+    //   var d = option.d||  function(){
+    //     console.log('步骤d')
+    //   }
+    //   var fn = function(){
+    //   }
+    //   fn.prototype.init = function(){
+    //     a()
+    //     b()
+    //     c()
+    //     d()
+    //   }
+    //   return fn
+    // }
+
+    // var option = {
+    //   a:function(){
+    //     console.log('my a')
+    //   }
+    // }
+
+    // var My = beverage(option)
+
+    // var my = new My()
+
+    // my.init()
+    
+  
+  class component {
+    static constructor(){
+      this.init()
+    }
+
+    init(){
+      this.a()
+      this.b()
+      this.created()
+      this.c()
+    }
+
+    a(){
+      console.log('a')
+    }
+
+    b(){
+      console.log('b')
+    }
+
+    c(){
+      console.log('c')
+    }
+  }
+
+
+  class mycom extends component {
+    a(){
+      console.log('my a')
+    }
+    created(){
+      console.log('11233')
+    }
+  }
+  const my = new mycom()
+
+  my.init()
+  </script>
+</body>
+</html>
