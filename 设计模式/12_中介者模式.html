@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Player(name,teamColor){
+      this.name = name
+      this.teamColor = teamColor
+      this.state = 'alive'
+    }
+
+    Player.prototype.win = function(){
+      console.log(this.name + 'win')
+    }
+
+    Player.prototype.lose = function(){
+      console.log(this.name + 'lose')
+    }
+
+    Player.prototype.die = function(){
+      this.state = 'dead'
+      playerDirector.reciveMessage('playerDead',this)
+    }
+
+    Player.prototype.remove = function(){
+      playerDirector.reciveMessage('removePlayer',this)
+    }
+
+    Player.prototype.changeTeam = function(){
+      playerDirector.reciveMessage('changeTeam',this,color)
+    }
+
+    var playerFactory = function(name,teamColor){
+      var newPlayer = new Player(name,teamColor)
+      playerDirector.reciveMessage('addPlayer',newPlayer)
+      return newPlayer
+    }
+
+    var playerDirector = (function(){
+      var players = {}
+      var operations = {}
+      
+      operations.addPlayer = function(player){
+        var playerTeam = player.teamColor
+        players[teamColor] = players[teamColor] || []
+        players[teamColor].push(player)
+      }
+
+      operations.playerDead = function(player){
+        var teamColor = player.teamColor
+        teamPlayers = players[teamColor]
+        
+        var all_dead = true
+
+        for(var i = 0; i< teamPlayers.length -1; i++){
+          if(player.state !== 'dead'){
+            all_dead = false
+          }
+          break
+        }
+
+        if(all_dead === true){
+          
+
+        }
+
+      }
+
+
+      var reciveMessage = function(){
+        var message = Array.prototype.shift.call( arguments )
+        operations[ message ].apply( this, arguments )
+      }
+
+      return {
+        reciveMessage
+      }
+
+
+
+
+
+
+
+    })()
+
+
+
+  
+  </script>
+</body>
+</html>

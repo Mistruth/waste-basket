@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+  
+    Function.prototype.before = function(beforefn){
+      var _self = this
+      return function(){
+        beforefn.apply(this,arguments)
+        _self.apply(this,arguments)       
+      }
+    }
+
+    function haha(q){
+      console.log('什么')
+      console.log(q)
+    }
+
+    haha.before(function(){
+      console.log('a')
+    })(321)
+    
+    Function.prototype.after = function(afterfn){
+      var _self = this
+      return function(){
+        const ret = _self.apply(this,arguments)
+        afterfn.apply(this,arguments)
+        return ret
+      }
+    }
+    haha = haha.after(function(){
+      console.log('之后')
+    })
+    haha(123)
+  </script>
+</body>
+</html>
