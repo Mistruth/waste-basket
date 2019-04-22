@@ -1,6 +1,6 @@
 {
-  "name": "collection-mistruth",
-  "version": "1.0.0",
+  "name": "waste-basket",
+  "version": "1.0.1",
   "description": "collected things",
   "main": "index.js",
   "scripts": {
