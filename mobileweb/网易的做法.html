@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .nav {
+      height: 2.1rem;
+      font-size: 14px;
+    }
+  
+  </style>
+</head>
+<body>
+  <div class="nav">
+    nav
+  </div>
+  <script>
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px'
+    console.log(document.documentElement.clientWidth)
+
+    const nav = document.querySelector('.nav')
+
+  </script>
+</body>
+</html>
