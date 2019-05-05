@@ -35,9 +35,9 @@ If-None-Match 和 ETag 配合使用 如果Etag没有发生变化，那么服务�
 ### 客户端新鲜度的限制
 客户端可以使用Cache-Control这个头部对缓存进行强化和放松
 max-stale 缓存可以随意提供过期文件
-max-stale = <s> 在这个时间内，文档不会过期
-min-fresh = <s> 在这个时间内，文档需要时最新的
-max-age = <s> 缓存无法缓存大于max-age时间的缓存
+max-stale = /<s/> 在这个时间内，文档不会过期
+min-fresh = /<s/> 在这个时间内，文档需要时最新的
+max-age = /<s/> 缓存无法缓存大于max-age时间的缓存
 no-cache 资源必须经过验证才能缓存
 no-store 要求本地删除缓存
 on-if-cached 本地有副本才进行缓存
