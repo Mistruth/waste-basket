@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    
+    var aa = 1
+
+    const p1 = Promise.resolve(aa).then(res=>{  //这种写法不是立即执行的
+      console.log(res)
+      return 123
+    })
+
+    console.log('这个是中间')
+
+
+    const p3 = p1.then(res=>{
+      console.log(res)
+      return 1231
+    })
+
+    // 执行的结果： 2 1 3
+
+
+    var bb = 2
+
+    const p2 = new Promise((resolve,reject) => {
+      resolve(234)  // 这种写法是立即执行的 比Promise.resolve快
+    })
+    
+
+    console.log('这又是中间')
+
+    const p4 = p2.then(res=>{
+      console.log(res)
+      return 2345
+    })
+
+    p3.then(res=>{
+      console.log(res)
+    })
+
+
+    p4.then(res => {
+      console.log(res)
+    })
+
+    
+  </script>
+</body>
+</html>
